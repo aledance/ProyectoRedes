@@ -1,0 +1,16 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: mosquitto-broker
+    restart: unless-stopped
+    ports:
+      - "1883:1883" # Mapea el puerto MQTT del contenedor al host
+      - "9001:9001" # Mapea el puerto WebSockets del contenedor al host
+    volumes:
+      # Mapea los directorios locales a los del contenedor para persistencia
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
